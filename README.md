@@ -13,4 +13,5 @@ A running RaZberry controller, see http://razberry.z-wave.me/ for more informati
 * npm install
 * bower update
 * Configure a new Apache host, set root to /public/index.html
-* Run in browser
+* grunt default
+* Open index.html in browser
