@@ -1,0 +1,15 @@
+{
+  "name": "razberry ember",
+  "dependencies": {
+    "ember": "~1.6",
+    "handlebars": "1.1",
+    "bootstrap": "3.2.0",
+    "html5shiv": "3.7.2",
+    "ember-data": "1.0.0-beta.6",
+    "modernizr": "2.8.3",
+    "moment": "2.8.0"
+  },
+  "resolutions": {
+    "handlebars": "1.1"
+  }
+}
