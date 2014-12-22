@@ -1,3 +1,12 @@
 body {
   padding-top: 50px;
 }
+
+.container-full {
+	margin: 0 auto;
+	width: 90%;
+}
+
+.container-outlet {
+	margin: 30px 10px;
+}

@@ -1,1 +1,11 @@
-hello razberry
+{{#each device in App.devices itemController="deviceItem"}}
+
+	{{#if device.isBinarySwitch}}
+		{{render "switchBinary" device}}
+	{{/if}}
+
+	{{#if device.isMultilevelSwitch}}
+		{{render "switchMultilevel" device}}
+	{{/if}}
+
+{{/each}}

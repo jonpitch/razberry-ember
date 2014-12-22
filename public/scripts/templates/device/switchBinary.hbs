@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+  	<div class="panel-heading">
+    	<h3 class="panel-title">{{device.title}}</h3>
+  	</div>
+  	<div class="panel-body">
+    	<button type="button" {{bind-attr class=":btn :btn-default device.binaryLevel:btn-primary"}} {{action "setLevel" device}}>{{device.level}}</button>
+  	</div>
+</div>
