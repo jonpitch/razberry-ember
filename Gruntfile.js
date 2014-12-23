@@ -49,7 +49,8 @@ module.exports = function (grunt) {
 				      'public/bower_components/ember-data/ember-data.js',
 				      'public/bower_components/html5shiv/dist/html5shiv.js',
 				      'public/bower_components/bower_components/modernizr/modernizr.js',
-				      'public/bower_components/moment/moment.js'],
+				      'public/bower_components/moment/moment.js',
+				      'public/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js'],
 				dest: 'public/bower_components/app.includes.js'
 			}
 		},
@@ -63,6 +64,7 @@ module.exports = function (grunt) {
 				files: {
 					'public/styles/app.css': ['public/bower_components/bootstrap/dist/css/bootstrap.css',
 					                          'public/bower_components/bootstrap/dist/css/bootstrap-theme.css',
+					                          'public/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css',
 					                          'public/styles/razberry.css']
 				}
 			},

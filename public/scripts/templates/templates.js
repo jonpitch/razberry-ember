@@ -26,7 +26,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
     'class': (":btn :btn-default device.binaryLevel:btn-primary")
   },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setLevel", "device", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setLevel", "device", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "device.level", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -44,10 +46,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   data.buffer.push("<div class=\"panel panel-default\">\n  	<div class=\"panel-heading\">\n    	<h3 class=\"panel-title\">Multi - ");
   stack1 = helpers._triageMustache.call(depth0, "device.title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h3>\n  	</div>\n  	<div class=\"panel-body\">\n    	");
-  stack1 = helpers._triageMustache.call(depth0, "device.level", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n  	</div>\n</div>");
+  data.buffer.push("</h3>\n  	</div>\n  	<div class=\"panel-body\">\n    	<input type=\"text\" class=\"multilevel\" />\n  	</div>\n</div>");
   return buffer;
   
 });
@@ -55,7 +54,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -71,18 +70,22 @@ function program1(depth0,data) {
   }
 function program2(depth0,data) {
   
-  var buffer = '', helper, options;
+  var buffer = '';
   data.buffer.push("\n		");
-  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "switchBinary", "device", options) : helperMissing.call(depth0, "render", "switchBinary", "device", options))));
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "switchBinary", {hash:{
+    'contentBinding': ("device")
+  },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push("\n	");
   return buffer;
   }
 
 function program4(depth0,data) {
   
-  var buffer = '', helper, options;
+  var buffer = '';
   data.buffer.push("\n		");
-  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "switchMultilevel", "device", options) : helperMissing.call(depth0, "render", "switchMultilevel", "device", options))));
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "switchMultilevel", {hash:{
+    'contentBinding': ("device")
+  },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push("\n	");
   return buffer;
   }

@@ -196,21 +196,28 @@ App.ApplicationController = Ember.Controller.extend({
 	
 	
 });
-
 App.DeviceItemController = Ember.ObjectController.extend({
 	
 	// the current level of the device - updates view automatically
 	binaryLevel: function () {
 		var device = this.get('model');
 		return device.get('level') === 'off' ? false : true;
-	}.property('clock.second'),
+	}.property('clock.second')
+	
+});
+App.SwitchBinaryView = Ember.View.extend({
+	
+	templateName: 'switchBinary',
 
-	// item actions
+	didInsertElement: function () {
+		this.$().attr('id', this.get('content').get('deviceId'));
+	},
+
 	actions: {
 
 		// set level for device
 		setLevel: function () {
-			var device = this.get('model'),
+			var device = this.get('content'),
 				host = App.get('host'),
 				endpoint = '/ZAutomation/api/v1/devices/' + device.get('deviceId') + '/command/',
 				command = null;
@@ -220,6 +227,51 @@ App.DeviceItemController = Ember.ObjectController.extend({
 				command = device.get('level') === 'off' ? 'on' : 'off';
 				Ember.$.getJSON(host + endpoint + command).then(function (response) {
 					device.set('level', command);
+				});
+			}
+		}
+
+	}
+
+});
+App.SwitchMultilevelView = Ember.View.extend({
+	
+	templateName: 'switchMultilevel',
+
+	// try and prevent slider from firing too many events
+	// TODO use a smaller step or different event binding
+	isMakingRequest: false,
+
+	didInsertElement: function () {
+		var self = this,
+			$input = self.$().find('.multilevel');
+
+		// init slider
+		$($input).slider({
+			value: this.get('content').get('level'),
+			min: 0,
+			max: 100
+		}).on('slide', function (e) {
+			self.send('setLevel', e.value);
+		});
+	},
+
+	actions: {
+
+		// set switch level
+		setLevel: function (level) {
+			var self = this,
+				device = this.get('content'),
+				host = App.get('host'),
+				endpoint = '/ZAutomation/api/v1/devices/' + device.get('deviceId') + '/command/exact?level=' + level,
+				command = null;
+
+			// toggle device - depending on type
+			if (device.get('deviceType') === 'switchMultilevel' && !self.get('isMakingRequest')) {
+				self.set('isMakingRequest', true);
+				Ember.$.getJSON(host + endpoint).then(function (response) {
+					device.set('level', command);
+					self.set('isMakingRequest', false);
 				});
 			}
 		}
@@ -253,7 +305,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
     'class': (":btn :btn-default device.binaryLevel:btn-primary")
   },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setLevel", "device", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "setLevel", "device", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "device.level", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -271,10 +325,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   data.buffer.push("<div class=\"panel panel-default\">\n  	<div class=\"panel-heading\">\n    	<h3 class=\"panel-title\">Multi - ");
   stack1 = helpers._triageMustache.call(depth0, "device.title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h3>\n  	</div>\n  	<div class=\"panel-body\">\n    	");
-  stack1 = helpers._triageMustache.call(depth0, "device.level", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n  	</div>\n</div>");
+  data.buffer.push("</h3>\n  	</div>\n  	<div class=\"panel-body\">\n    	<input type=\"text\" class=\"multilevel\" />\n  	</div>\n</div>");
   return buffer;
   
 });
@@ -282,7 +333,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -298,18 +349,22 @@ function program1(depth0,data) {
   }
 function program2(depth0,data) {
   
-  var buffer = '', helper, options;
+  var buffer = '';
   data.buffer.push("\n		");
-  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "switchBinary", "device", options) : helperMissing.call(depth0, "render", "switchBinary", "device", options))));
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "switchBinary", {hash:{
+    'contentBinding': ("device")
+  },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push("\n	");
   return buffer;
   }
 
 function program4(depth0,data) {
   
-  var buffer = '', helper, options;
+  var buffer = '';
   data.buffer.push("\n		");
-  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "switchMultilevel", "device", options) : helperMissing.call(depth0, "render", "switchMultilevel", "device", options))));
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "switchMultilevel", {hash:{
+    'contentBinding': ("device")
+  },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push("\n	");
   return buffer;
   }

@@ -1,11 +1,11 @@
 {{#each device in App.devices itemController="deviceItem"}}
 
 	{{#if device.isBinarySwitch}}
-		{{render "switchBinary" device}}
+		{{view "switchBinary" contentBinding="device"}}
 	{{/if}}
 
 	{{#if device.isMultilevelSwitch}}
-		{{render "switchMultilevel" device}}
+		{{view "switchMultilevel" contentBinding="device"}}
 	{{/if}}
 
 {{/each}}
