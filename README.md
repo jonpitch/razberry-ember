@@ -15,3 +15,7 @@ A running RaZberry controller, see http://razberry.z-wave.me/ for more informati
 * Configure a new Apache host, set root to /public/index.html
 * grunt default
 * Open index.html in browser
+
+# Supported devices
+
+I only have access to three ZWave devices (two binary switch devices and a dimmer), so the application only has those types.
